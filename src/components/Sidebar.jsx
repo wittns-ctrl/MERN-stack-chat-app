@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
+import { userDummyData } from '../assets/assets.js'
 
 const Sidebar = ({ selectedUser}) => {
     const  navigate = useNavigate()
@@ -17,6 +18,31 @@ const Sidebar = ({ selectedUser}) => {
             </div>
            </div>
         </div>
+       <div className='bg-[#282142] rounded-full flex items-center gap-2 py-3 px-4 mt-5'>
+        <img src="" alt="Search" className='w-3'/>
+        <input type="text"  className='bg-transparent border-none outline-none text-white text-xs placeholder-[#c8c8c8] flex-1' placeholder='search User...'/>
+       </div>
+
+      </div>
+
+      <div className='flex flex-col'>
+         {userDummyData.map((user,index)=>(
+          <div onClick={()=> {setSelectedUser(user)}}  
+          key={index} className={`relative flex items-center gap-2 p-2 pl-4 rounded cursor-pointer max-sm:text-sm ${selectedUser?._id === user._id && 'bg-[#282142]/50'}`}>
+           <img src="./src/assets/symbol.png " alt="" className='w-[35px] aspect-[1/1] rounded-full'/>
+           <div className='flex flex-col leading-5'>
+               <p>{user.fullname}</p>
+               {
+                index < 3
+                ? <span className='text-green-400 text-xs'>Online</span>
+                : <span className='text-neutral-400 text-xs'>
+                  Offline
+                </span>
+               }
+           </div>
+           { index > 2 && <p className='absolute top-4 right-4 text-xs h-5 w-5 flex justify-center items-center rounded-full bg-violet-500/50'>{index}</p>}
+          </div>
+         ))}
       </div>
     </div>
   )
